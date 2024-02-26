@@ -28,12 +28,14 @@ class DatastoreDateTest {
 
         val loadedThingSameTZ  = repository!!.findById(id).get()
         println(loadedThingSameTZ)
+        // this assertion passes, was loaded in the same time zone it was saved
         assertEquals(myDate, loadedThingSameTZ.date)
 
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 
         val loadedThingUTC  = repository!!.findById(id).get()
         println(loadedThingUTC)
+        // this assertion fails, was loaded in a different time zone
         assertEquals(myDate, loadedThingUTC.date)
     }
 
